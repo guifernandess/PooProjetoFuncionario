@@ -15,17 +15,16 @@ import java.sql.ResultSet;
  *
  * @author Guilherme
  */
-/**
-public class DaoFuncionarioCLT implements InterfaceCRUD_CLT{
+public class DaoFuncionarioCLT {
 
-    @Override
-    public void cadastrar(Funcionario funcionario) throws Exception{
-        // cadastrar Funcionario CLT
-        try {          
+    private FuncionarioCLT funcionario;
+
+    public void cadastrar(FuncionarioCLT funcionario) throws Exception {
+        try {
             Connection conn = SqlConnection.getConexao();
             String sql = "call cadastrar_funcionario(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            
+
             stmt.setInt(1, funcionario.getIdDepartamento());
             stmt.setString(2, funcionario.getDepartamento());
             stmt.setString(3, funcionario.getNome());
@@ -49,9 +48,8 @@ public class DaoFuncionarioCLT implements InterfaceCRUD_CLT{
         }
     }
 
-    @Override
-    public void alterar(Funcionario funcionario) throws Exception{
-        try {    
+    public void alterar(FuncionarioCLT funcionario) throws Exception {
+        try {
             Connection conn = SqlConnection.getConexao();
             String sql = "call cadastrar_funcionario(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -70,7 +68,7 @@ public class DaoFuncionarioCLT implements InterfaceCRUD_CLT{
             stmt.setDouble(12, funcionario.getValortransporte());
             stmt.setDate(13, funcionario.getDataNascimento());
             stmt.setInt(14, funcionario.getCTPS());
-            stmt.setDouble(15, funcionario.getSalario());            
+            stmt.setDouble(15, funcionario.getSalario());
 
             stmt.execute();
             stmt.close();
@@ -79,53 +77,58 @@ public class DaoFuncionarioCLT implements InterfaceCRUD_CLT{
             throw e;
         }
     }
-
-    @Override
-    public Funcionario obter(int idFuncionario) throws Exception{
-//            try {
-//            FuncionarioCLT funcionario = new FuncionarioCLT();
-//            Connection conn = SqlConnection.getConexao();
-//            String sql = "call obter_funcionario(?)";
-//            PreparedStatement stmt = conn.prepareStatement(sql);
-//
-//            stmt.setInt(1, idFuncionario);
-//
-//            ResultSet rs = stmt.executeQuery();
-//             while (rs.next()) {
-//                funcionario = new Funcionario(
-//                        rs.getInt("id_funcionario"),
-//                        rs.getInt("id_departamento"),
-//                        rs.getString("Departamento"),
-//                        rs.getString("nome"), 
-//                        rs.getDate("data_nascimento"),
-//                        rs.getDate("data_admissao"),
-//                        rs.getString("endereco"),
-//                        rs.getInt("telefone"),
-//                        rs.getString("frequencia"),
-//                        rs.getInt("idclt"),
-//                        rs.getInt("CPF"),
-//                        rs.getDouble("Valor_Refeicao"),
-//                        rs.getDouble("Valor_Transporte"),
-//                        rs.getDate("data_nascimento"),
-//                        rs.getInt("CTPS"),
-//                        rs.getDouble("salario"));
-//                        
-//            }
-//            stmt.close();
-//            conn.close();
-            Funcionario e = new Funcionario();
-            return ;
-//        } catch (Exception e) {
-//            throw e;
-//        }
-    }
-
-    @Override
-    public void deletar(FuncionarioCLT funcionario)throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-   
     
+    public FuncionarioCLT obter(int idFuncionario) throws Exception {
+        try {
+            Connection conn = SqlConnection.getConexao();
+            String sql = "call obter_funcionario(?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, idFuncionario);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                funcionario = new FuncionarioCLT(
+                        rs.getInt("id_funcionario"),
+                        rs.getInt("id_departamento"),
+                        rs.getString("Departamento"),
+                        rs.getString("nome"),
+                        rs.getDate("data_nascimento"),
+                        rs.getDate("data_admissao"),
+                        rs.getString("endereco"),
+                        rs.getInt("telefone"),
+                        rs.getString("frequencia"),
+                        rs.getInt("idclt"),
+                        rs.getInt("CPF"),
+                        rs.getDouble("Valor_Refeicao"),
+                        rs.getDouble("Valor_Transporte"),
+                        rs.getDate("data_nascimento"),
+                        rs.getInt("CTPS"),
+                        rs.getDouble("salario"));
+
+            }
+            stmt.close();
+            conn.close();
+
+        } catch (Exception e) {
+            throw e;
+        }
+        return funcionario;
+    }
+
+
+    public void deletar(int id) throws Exception {
+        try {
+            Connection conn = SqlConnection.getConexao();
+            String sql = "call remover_funcionario(?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.execute();
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
 }
-*/ 
