@@ -19,9 +19,8 @@ public class Funcionario {
     private Date dataAdmissao;
     private String endereco;
     private int telefone;
-    private String frequencia;
-
-    public Funcionario(int idFuncionario, int idDepartamento, String Departamento, String nome, Date dataAdmissao, String endereco, int telefone, String frequencia) {
+    
+    public Funcionario(int idFuncionario, int idDepartamento, String Departamento, String nome, Date dataAdmissao, String endereco, int telefone) {
         this.idFuncionario = idFuncionario;
         this.idDepartamento = idDepartamento;
         this.Departamento = Departamento;
@@ -29,7 +28,6 @@ public class Funcionario {
         this.dataAdmissao = dataAdmissao;
         this.endereco = endereco;
         this.telefone = telefone;
-        this.frequencia = frequencia;
     }
 
     public int getIdFuncionario() {
@@ -86,14 +84,5 @@ public class Funcionario {
 
     public void setTelefone(int telefone) {
         this.telefone = telefone;
-    }
-
-    public String getFrequencia() {
-        return frequencia;
-    }
-
-    public void setFrequencia(String frequencia) {
-        this.frequencia = frequencia;
-    }
-    
+    }    
 }

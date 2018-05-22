@@ -18,8 +18,8 @@ public class FuncionarioPJ extends Funcionario{
     private int qtdHora;
     private String tempoContrato;
     
-    public FuncionarioPJ(int idFuncionario, int idDepartamento, String Departamento, String nome, Date dataAdmissao, String endereco, int telefone, String frequencia) {
-        super(idFuncionario, idDepartamento, Departamento, nome, dataAdmissao, endereco, telefone, frequencia);
+    public FuncionarioPJ(int idFuncionario, int idDepartamento, String Departamento, String nome, Date dataAdmissao, String endereco, int telefone) {
+        super(idFuncionario, idDepartamento, Departamento, nome, dataAdmissao, endereco, telefone);
     }
     
     public Double calcValorTotalHora(FuncionarioPJ pj){

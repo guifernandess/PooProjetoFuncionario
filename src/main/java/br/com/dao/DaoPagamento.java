@@ -35,31 +35,31 @@ public class DaoPagamento {
             throw e;
         }
     }
-    /*
-    public static Pagamento obterVenda(int idPagamento) throws Exception {
+    
+    public static Pagamento obterPagamentoCLT(int idPagamento) throws Exception {
         try {
             Pagamento pagamento = new Pagamento();
             Connection conn = SqlConnection.getConexao();
-            String sql = "call obter_pagamento(?)";
+            String sql = "call obter_pagamentoCLT(?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, idPagamento);
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                pagamento = new Pagamento(
-                        rs.getInt("id_pagamento"),
-                        DaoFuncionario.obter(rs.getInt("id_funcionario")),
-                        DaoFilial.obter(rs.getInt("id_filial")),
-                        rs.getDate("data_venda"),
-                        DaoItemVenda.obter(idVenda));
+//                pagamento = new Pagamento(
+//                        rs.getInt("id_pagamento"),
+//                        DaoFuncionarioCLT.obter(rs.getInt("id_funcionario")),
+//                        DaoDepartamento.obter(rs.getInt("id_departamento")),
+//                        rs.getDate("data_venda"),
+//                        DaoItemVenda.obter(idVenda));
             }
             stmt.close();
             conn.close();
 
-            return venda;
+            return pagamento;
         } catch (Exception e) {
             throw e;
         }
-    }*/
+    }
 }

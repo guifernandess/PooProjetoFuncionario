@@ -20,8 +20,8 @@ public class FuncionarioDiarista extends Funcionario {
     private double valorTransporte;
     private double valorDiario;
 
-    public FuncionarioDiarista(int idFuncionario, int idDepartamento, String Departamento, String nome, Date dataAdmissao, String endereco, int telefone, String frequencia) {
-        super(idFuncionario, idDepartamento, Departamento, nome, dataAdmissao, endereco, telefone, frequencia);
+    public FuncionarioDiarista(int idFuncionario, int idDepartamento, String Departamento, String nome, Date dataAdmissao, String endereco, int telefone) {
+        super(idFuncionario, idDepartamento, Departamento, nome, dataAdmissao, endereco, telefone);
     }
 
     public Double calcVR(int qtdDias, FuncionarioDiarista funcionario) {

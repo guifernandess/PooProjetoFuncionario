@@ -21,16 +21,11 @@ public class FuncionarioCLT extends Funcionario {
     private int CTPS;
     private double salario;
 
-    public FuncionarioCLT(int idFuncionario, int idDepartamento, String Departamento, String nome, Date dataAdmissao, String endereco, int telefone, String frequencia
+    public FuncionarioCLT(int idFuncionario, int idDepartamento, String Departamento, String nome, Date dataAdmissao, String endereco, int telefone
                          ,int idCLT, int CPF, double valorRefeicao, double valortransporte, Date dataNascimento, int CTPS, double salario  ) {
-        super(idFuncionario, idDepartamento, Departamento, nome, dataAdmissao, endereco, telefone, frequencia);
+        super(idFuncionario, idDepartamento, Departamento, nome, dataAdmissao, endereco, telefone);
         
     }
-
-    public FuncionarioCLT(int aInt, int aInt0, String string, String string0, Date date, Date date0, String string1, int aInt1, String string2, int aInt2, int aInt3, double aDouble, double aDouble0, Date date1, int aInt4, double aDouble1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 
     public Double calcValorFalta(int qtdFalta, FuncionarioCLT clt) {
         double auxValorDia = this.salario / 30;
