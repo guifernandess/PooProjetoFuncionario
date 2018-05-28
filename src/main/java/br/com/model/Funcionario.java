@@ -30,6 +30,10 @@ public class Funcionario {
         this.telefone = telefone;
     }
 
+    public Funcionario() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getIdFuncionario() {
         return idFuncionario;
     }

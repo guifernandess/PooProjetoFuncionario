@@ -5,6 +5,7 @@
  */
 package br.com.servlet;
 
+import br.com.dao.DaoDepartamento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import br.com.model.FuncionarioCLT;
@@ -15,22 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+
 /**
  *
  * @author guilherme.frocha6
  */
 @WebServlet(name = "CadastroCLT", urlPatterns = {"/CadastroCLT"})
 public class CadastroCLT extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -60,7 +53,13 @@ public class CadastroCLT extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        FuncionarioCLT funcionario = (FuncionarioCLT) request.getSession().getAttribute("funcionario");
+        if (funcionario == null) {
+            response.sendRedirect("index.jsp");
+        }
+        
+        
     }
 
     /**
@@ -74,7 +73,7 @@ public class CadastroCLT extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        /*
         FuncionarioCLT clt = new FuncionarioCLT();
         
         
@@ -90,7 +89,7 @@ public class CadastroCLT extends HttpServlet {
         ProdutoController.cadastrar(produto);
 
         request.getRequestDispatcher("./ProdutoListar").forward(request, response);
-
+*/
     }
 
     /**

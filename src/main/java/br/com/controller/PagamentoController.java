@@ -1,47 +1,66 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.com.controller;
 
-import br.com.dao.DaoDepartamento;
+
 import br.com.dao.DaoPagamento;
 import br.com.model.Pagamento;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 /**
  *
  * @author Guilherme
  */
 public class PagamentoController {
-    
     public static void cadastrar(Pagamento pagamento) throws Exception {
         try {
+            validar(pagamento);
             DaoPagamento.cadastrar(pagamento);
         } catch (Exception e) {
             throw e;
         }
     }
-    /*
-    public static Pagamento obterVenda(int idVenda) throws Exception {
+    
+    public static void alterar(Pagamento pagamento) throws Exception {
         try {
-            return DaoPagamento.obterVenda(idVenda);
+            validar(pagamento);
+            DaoPagamento.atualizar(pagamento);
         } catch (Exception e) {
             throw e;
         }
-    } */
+    }
+    
+    public static Pagamento obter(int idDepartamento) throws Exception {
+        try {
+            return DaoPagamento.obterPagamento(idDepartamento);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public static ArrayList<Pagamento> listar() throws Exception  {
+        try {
+            return (ArrayList<Pagamento>) DaoPagamento.listar();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public static boolean deletar(int id) throws Exception {
+        try {
+            return DaoPagamento.excluir(id);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
     
     private static void validar(Pagamento pagamento) throws Exception {
         try {
-    
-            if (pagamento.getFuncionario().getIdFuncionario() <= 0) {
-                throw new Exception("Funcionario inválido");
-            }
-            if (pagamento.getDepartamento().getIdDepartamento()<= 0) {
-                throw new Exception("Departamento inválido");
+            if (pagamento.getValorPagamento()== 0) {
+                throw new Exception("pagametento zerado");
             }
         } catch (Exception e) {
             throw e;
         }
     }
-
 }

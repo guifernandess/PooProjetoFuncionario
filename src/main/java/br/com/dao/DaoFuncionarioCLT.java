@@ -12,16 +12,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-/**
- *
- * @author Guilherme
- */
 
 public class DaoFuncionarioCLT {
 
     private FuncionarioCLT funcionario;
 
-    public void cadastrar(FuncionarioCLT funcionario) throws Exception {
+    public static void cadastrar(FuncionarioCLT funcionario) throws Exception {
+        
         try {
             Connection conn = SqlConnection.getConexao();
             String sql = "call cadastrar_funcionario(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";

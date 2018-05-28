@@ -15,15 +15,17 @@ import java.util.ArrayList;
 public class Pagamento {
 
     private int idPagamento;
-    private Funcionario funcionario;
+    private int idFuncionario;
+    private int idDepartamento;
     private Date dataPagamento;
-    private Departamento departamento;
+    private double valorPagamento;
 
-public Pagamento(int idPagamento, Funcionario funcionario,Date dataPagamento, Departamento departamento) {
+    public Pagamento(int idPagamento, int funcionario, Date dataPagamento, int departamento, double valorPagamento) {
         this.idPagamento = idPagamento;
-        this.funcionario = funcionario;
+        this.idFuncionario = funcionario;
         this.dataPagamento = dataPagamento;
-        this.departamento = departamento;
+        this.idDepartamento = departamento;
+        this.valorPagamento = valorPagamento;
     }
 
     public Pagamento() {
@@ -38,12 +40,20 @@ public Pagamento(int idPagamento, Funcionario funcionario,Date dataPagamento, De
         this.idPagamento = idPagamento;
     }
 
-    public Funcionario getFuncionario() {
-        return funcionario;
+    public int getIdFuncionario() {
+        return idFuncionario;
     }
 
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
+    public void setIdFuncionario(int idFuncionario) {
+        this.idFuncionario = idFuncionario;
+    }
+
+    public int getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    public void setIdDepartamento(int idDepartamento) {
+        this.idDepartamento = idDepartamento;
     }
 
     public Date getDataPagamento() {
@@ -54,13 +64,14 @@ public Pagamento(int idPagamento, Funcionario funcionario,Date dataPagamento, De
         this.dataPagamento = dataPagamento;
     }
 
-    public Departamento getDepartamento() {
-        return departamento;
+    public double getValorPagamento() {
+        return valorPagamento;
     }
 
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
+    public void setValorPagamento(double valorPagamento) {
+        this.valorPagamento = valorPagamento;
     }
 
+    
     
 }
