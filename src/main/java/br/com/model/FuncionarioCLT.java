@@ -18,15 +18,29 @@ public class FuncionarioCLT extends Funcionario {
     private double valorRefeicao;
     private double valortransporte;
     private Date dataNascimento;
-    private int CTPS;
     private double salario;
 
     public FuncionarioCLT(int idFuncionario, int idDepartamento, String Departamento, String nome, Date dataAdmissao, String endereco, int telefone
-                         ,int idCLT, int CPF, double valorRefeicao, double valortransporte, Date dataNascimento, int CTPS, double salario  ) {
+                         ,int idCLT, int CPF, double valorRefeicao, double valortransporte, Date dataNascimento, double salario  ) {
         super(idFuncionario, idDepartamento, Departamento, nome, dataAdmissao, endereco, telefone);
         
     }
 
+    public FuncionarioCLT(int idCLT, int CPF, double valorRefeicao, double valortransporte, Date dataNascimento, double salario, int idFuncionario, int idDepartamento, String Departamento, String nome, Date dataAdmissao, String endereco, int telefone) {
+        super(idFuncionario, idDepartamento, Departamento, nome, dataAdmissao, endereco, telefone);
+        this.idCLT = idCLT;
+        this.CPF = CPF;
+        this.valorRefeicao = valorRefeicao;
+        this.valortransporte = valortransporte;
+        this.dataNascimento = dataNascimento;
+        this.salario = salario;
+    }
+
+    public FuncionarioCLT() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     public Double calcValorFalta(int qtdFalta, FuncionarioCLT clt) {
         double auxValorDia = this.salario / 30;
         return qtdFalta * auxValorDia;
@@ -70,14 +84,6 @@ public class FuncionarioCLT extends Funcionario {
 
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
-    }
-
-    public int getCTPS() {
-        return CTPS;
-    }
-
-    public void setCTPS(int CTPS) {
-        this.CTPS = CTPS;
     }
 
     public double getSalario() {

@@ -5,98 +5,102 @@
  */
 package br.com.dao;
 
-import br.com.model.Funcionario;
-import br.com.model.FuncionarioCLT;
+import br.com.interfaces.InterfaceDaoDiarista;
+import br.com.model.FuncionarioDiarista;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Guilherme
+ */
+public class DaoFuncionarioDiarista {
+   
+    public static void cadastrar(FuncionarioDiarista funcionario) throws Exception, SQLException {
 
-public class DaoFuncionarioCLT {
-
-    private FuncionarioCLT funcionario;
-
-    public static void cadastrar(FuncionarioCLT funcionario) throws Exception {
-        
         try {
             Connection conn = SqlConnection.getConexao();
-            String sql = "INSERT INTO FUNCIONARIO_CLT (id_funcionario, cpf, valor_refeicao, valor_transporte, data_nascimento, salario)"
+            String sql = "INSERT INTO FUNCIONARIO_DIARISTA (id_funcionario, cpf, valor_refeicao, valor_transporte, data_nascimento, valor_dia)"
                     + "VALUES (?,?,?,?,?,?)";
-               PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, funcionario.getIdFuncionario());
             stmt.setInt(2, funcionario.getCPF());
             stmt.setDouble(3, funcionario.getValorRefeicao());
-            stmt.setDouble(4, funcionario.getValortransporte());
+            stmt.setDouble(4, funcionario.getValorTransporte());
             stmt.setDate(5, funcionario.getDataNascimento());
-            stmt.setDouble(6, funcionario.getSalario());
+            stmt.setDouble(6, funcionario.getValorDiario());
 
             stmt.execute();
             stmt.close();
             conn.close();
+
         } catch (Exception e) {
             throw e;
         }
     }
 
-    public static void alterar(FuncionarioCLT funcionario) throws Exception, SQLException {
+    
+    public static void alterar(FuncionarioDiarista funcionario) throws Exception, SQLException {
         try {
             Connection conn = SqlConnection.getConexao();
-            String sql = "UPDATE FUNCIONARIO_CLT SET"
-                    + "cpf = ?, valor_refeicao = ?, valor_transporte = ?, data_nascimento = ?, salario = ?"
+            String sql = "UPDATE FUNCIONARIO_DIARISTA SET"
+                    + "cpf = ?, valor_refeicao = ?, valor_transporte = ?, data_nascimento = ?, valor_dia = ?"
                     + "where id_funcionario = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, funcionario.getCPF());
             stmt.setDouble(2, funcionario.getValorRefeicao());
-            stmt.setDouble(3, funcionario.getValortransporte());
+            stmt.setDouble(3, funcionario.getValorTransporte());
             stmt.setDate(4, funcionario.getDataNascimento());
-            stmt.setDouble(5, funcionario.getSalario());
-             stmt.setInt(6, funcionario.getIdFuncionario());
+            stmt.setDouble(5, funcionario.getValorDiario());
+            stmt.setInt(6, funcionario.getIdFuncionario());
 
             stmt.execute();
             stmt.close();
             conn.close();
+
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         } catch (ClassNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
     }
-    
-    public static FuncionarioCLT obter(int CPF) throws Exception {
+
+   
+    public static FuncionarioDiarista obter(int CPF) throws Exception, SQLException {
         try {
-            FuncionarioCLT funcionario = new FuncionarioCLT();
+            FuncionarioDiarista funcionario = new FuncionarioDiarista();
             Connection conn = SqlConnection.getConexao();
             String sql = "select f.id_funcionario, f.id_departamento, f.departamento, f.nome, f.data_nascimento, f.endereco, f.telefone"
-                    + ",c.id_clt, c.cpf, c.valor_Refeicao, c.valor_transporte, c.data_nascimento, c.salario  "
+                    + ",d.id_diarista, d.cpf, d.valor_Refeicao, d.valor_transporte, d.data_nascimento, d.valor_dia"
                     + "FROM Funcionario f"
-                    + "inner join funcionario_clt c "
-                    + "on c.id_funcionario = f.id_funcionario"
-                    + "WHERE c.CPF = " + CPF;
+                    + "inner join funcionario_diarista d "
+                    + "on d.id_funcionario = f.id_funcionario"
+                    + "WHERE d.CPF = " + CPF;
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, CPF);
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                funcionario = new FuncionarioCLT(
+                funcionario = new FuncionarioDiarista(
                         rs.getInt("id_funcionario"),
                         rs.getInt("id_departamento"),
                         rs.getString("Departamento"),
                         rs.getString("nome"),
-                        rs.getDate("data_nascimento"),
+                        rs.getDate("data_admissao"),
                         rs.getString("endereco"),
                         rs.getInt("telefone"),
-                        rs.getInt("idclt"),
+                        rs.getInt("id_diarista"),
                         rs.getInt("CPF"),
+                        rs.getDate("data_nascimento"),
                         rs.getDouble("Valor_Refeicao"),
                         rs.getDouble("Valor_Transporte"),
-                        rs.getDate("data_nascimento"),
-                        rs.getDouble("salario"));
-
+                        rs.getDouble("valor_dia "));
             }
             stmt.close();
             conn.close();
@@ -106,22 +110,24 @@ public class DaoFuncionarioCLT {
             throw e;
         }
         
+        
     }
-    
-    public static ArrayList<FuncionarioCLT> obterList() throws Exception {
+
+
+    public static ArrayList<FuncionarioDiarista> obterList() throws Exception, SQLException {
         try {
-            ArrayList<FuncionarioCLT> funcionarios = new ArrayList<FuncionarioCLT>();
+            ArrayList<FuncionarioDiarista> funcionarios = new ArrayList<FuncionarioDiarista>();
             Connection conn = SqlConnection.getConexao();
             String sql = "select f.id_funcionario, f.id_departamento, f.departamento, f.nome, f.data_nascimento, f.endereco, f.telefone"
-                    + ",c.id_clt, c.cpf, c.valor_Refeicao, c.valor_transporte, c.data_nascimento, c.salario  "
+                    + ",d.id_diarista, d.cpf, d.valor_Refeicao, d.valor_transporte, d.data_nascimento, d.valor_dia"
                     + "FROM Funcionario f"
-                    + "inner join funcionario_clt c "
-                    + "on c.id_funcionario = f.id_funcionario";
+                    + "inner join funcionario_diarista d "
+                    + "on d.id_funcionario = f.id_funcionario";
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                funcionarios.add( new FuncionarioCLT(
+                funcionarios.add( new FuncionarioDiarista(
                         rs.getInt("id_funcionario"),
                         rs.getInt("id_departamento"),
                         rs.getString("Departamento"),
@@ -129,11 +135,11 @@ public class DaoFuncionarioCLT {
                         rs.getDate("data_nascimento"),
                         rs.getString("endereco"),
                         rs.getInt("telefone"),
-                        rs.getInt("idclt"),
+                        rs.getInt("id_diarista"),
                         rs.getInt("CPF"),
-                        rs.getDouble("Valor_Refeicao"),
-                        rs.getDouble("Valor_Transporte"),
                         rs.getDate("data_nascimento"),
+                        rs.getDouble("valor_refeicao"),
+                        rs.getDouble("Valor_Transporte"),                        
                         rs.getDouble("salario")));
             }
             stmt.close();
@@ -146,10 +152,10 @@ public class DaoFuncionarioCLT {
     }
 
 
-    public static void deletar(int CPF) throws Exception {
+    public static void deletar(int CPF) throws Exception, SQLException {
         try {
             Connection conn = SqlConnection.getConexao();
-            String sql = "delete Funcionario_CLT where CPF = ?";
+            String sql = "delete Funcionario_diarista where CPF = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, CPF);
             stmt.execute();
