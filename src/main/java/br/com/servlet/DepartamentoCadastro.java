@@ -5,25 +5,30 @@
  */
 package br.com.servlet;
 
-import br.com.dao.DaoDepartamento;
 import java.io.IOException;
 import java.io.PrintWriter;
-import br.com.model.FuncionarioCLT;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
 /**
  *
- * @author guilherme.frocha6
+ * @author Guilherme
  */
-@WebServlet(name = "CadastroCLT", urlPatterns = {"/CadastroCLT"})
-public class CadastroCLT extends HttpServlet {
-    
+@WebServlet(name = "DepartamentoCadastro", urlPatterns = {"/cadastro-departamento"})
+public class DepartamentoCadastro extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -32,10 +37,10 @@ public class CadastroCLT extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CadastroCLT</title>");
+            out.println("<title>Servlet DepartamentoCadastro</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CadastroCLT at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DepartamentoCadastro at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -53,13 +58,7 @@ public class CadastroCLT extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        FuncionarioCLT funcionario = (FuncionarioCLT) request.getSession().getAttribute("funcionario");
-        if (funcionario == null) {
-            response.sendRedirect("index.jsp");
-        }
-        
-        
+        processRequest(request, response);
     }
 
     /**
@@ -73,23 +72,7 @@ public class CadastroCLT extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /*
-        FuncionarioCLT clt = new FuncionarioCLT();
-        
-        
-        
-        
-        
-        
-        produto.setProduto(request.getParameter("produto"));
-        produto.setPreco(Double.parseDouble(request.getParameter("preco")));
-        produto.setTipoProduto(TipoProdutoController.obter(Integer.parseInt(request.getParameter("tipo_produto"))));
-        produto.setCombustivel(Boolean.parseBoolean(request.getParameter("combustivel")));
-        produto.setEstocavel(Boolean.parseBoolean(request.getParameter("estocavel")));
-        ProdutoController.cadastrar(produto);
-
-        request.getRequestDispatcher("./ProdutoListar").forward(request, response);
-*/
+        processRequest(request, response);
     }
 
     /**
