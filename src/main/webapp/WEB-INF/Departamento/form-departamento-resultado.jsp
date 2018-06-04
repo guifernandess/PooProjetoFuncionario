@@ -26,7 +26,7 @@
         <p>
         <hr class="style13">    
         <div>
-            <form action="${pageContext.request.contextPath}/AtualizarDepartamento"
+            <form action="${pageContext.request.contextPath}/DepartamentoAtualizar"
                   method="post">
 
                 <div class="form-row" >

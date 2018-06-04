@@ -1,6 +1,7 @@
 
 package br.com.dao;
 
+import br.com.model.Departamento;
 import br.com.model.Funcionario;
 import java.sql.Connection;
 import java.sql.Date;
@@ -181,4 +182,31 @@ public class DaoFuncionario {
         }
         return funcionario.getIdFuncionario();
     }
+    
+    public static int selectIdDepartamento (String departamento)throws ClassNotFoundException, SQLException, Exception {
+        Departamento dep = new Departamento();
+        
+        try {
+            Connection conn = SqlConnection.getConexao();
+            String sql = "SELECT id_departamento"
+                    + "FROM Departamento"
+                    + "where departamento = " + departamento;
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            ResultSet resultados = stmt.executeQuery();
+            while (resultados.next()) {
+                int idP = resultados.getInt("id_departamento");
+                System.out.println("Esse é o id: " + idP);
+                dep.setIdDepartamento(idP);
+
+            }
+            conn.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return dep.getIdDepartamento();
+    } 
 }

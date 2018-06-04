@@ -1,6 +1,6 @@
 <%-- 
     Document   : resultadoCadastro
-    Created on : 03/06/2018, 18:09:07
+    Created on : 04/06/2018, 16:00:35
     Author     : Guilherme
 --%>
 
@@ -13,8 +13,8 @@
     </head>
     <body>
     <jsp:include page="menu.jsp"/>
-        <h1>Departamento <c:out value="${departamentoCadastrado.nome}" /> cadastrado com sucesso</h1>
+        <h1>Funcionario <c:out value="${cltCadastrado.nome}" /> cadastrado com sucesso</h1>
         <p>
-             <a href= "${pageContext.request.contextPath}/DepartamentoHome" > Voltar </a>
+             <a href= "${pageContext.request.contextPath}/CLTHome" > Voltar </a>
     </body>
 </html>
