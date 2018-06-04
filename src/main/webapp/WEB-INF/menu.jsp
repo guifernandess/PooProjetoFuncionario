@@ -20,42 +20,43 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">WebSiteName</a>
+                    <a class="navbar-brand" href="#"><font color = "green">  PagamentoCenter</font></a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Carros<span class="caret"></span></a>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Departamento<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="${pageContext.request.contextPath}/cadastro-carro"> Cadastrar Carros </a></li>
-                            <li><a href="${pageContext.request.contextPath}/ListarCarrosServlet"> Listar Carros </a></li>
+                            <li><a href="${pageContext.request.contextPath}/cadastro-departamento"> Cadastrar Departamento </a></li>
+                            <li><a href="${pageContext.request.contextPath}/DepartamentoListar"> Listar Departamento </a></li>
                         </ul>
                     </li>
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Funcionarios<span class="caret"></span></a>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Funcionario CLT<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="${pageContext.request.contextPath}/cadastro-funcionario"> Cadastrar Funcionarios </a></li>
-                            <li><a href="${pageContext.request.contextPath}/ListarFuncionarioServlet"> Listar Funcionarios </a></li>
+                            <li><a href="${pageContext.request.contextPath}/cadastro-funcionario-clt"> Cadastrar Funcionarios </a></li>
+                            <li><a href="${pageContext.request.contextPath}/FuncionarioCltListar"> Listar Funcionarios </a></li>
                         </ul>
                     </li>
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Clientes<span class="caret"></span></a>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Funcionario Diarista<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="${pageContext.request.contextPath}/cadastro-cliente"> Cadastrar Clientes </a></li>
-                            <li><a href="${pageContext.request.contextPath}/ListarClientesServlet"> Listar Clientes </a></li>
+                            <li><a href="${pageContext.request.contextPath}/cadastro-funcionario-diarista"> Cadastrar Funcionarios </a></li>
+                            <li><a href="${pageContext.request.contextPath}/FuncionarioDiaristaListar"> Listar Funcionarios </a></li>
                         </ul>
                     </li>
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Filiais<span class="caret"></span></a>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Funcionario PJ<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="${pageContext.request.contextPath}/cadastro-filial"> Cadastrar Filiais </a></li>
-                            <li><a href="${pageContext.request.contextPath}/ListarFiliaisServlet"> Listar Filiais </a></li>
+                            <li><a href="${pageContext.request.contextPath}/cadastro-funcionario-pj"> Cadastrar Funcionarios </a></li>
+                            <li><a href="${pageContext.request.contextPath}/FuncionarioPJListar"> Listar Funcionarios </a></li>
                         </ul>
                     </li>
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Planos<span class="caret"></span></a>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Pagamentos<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="${pageContext.request.contextPath}/cadastro-plano"> Cadastrar Planos </a></li>
-                            <li><a href="${pageContext.request.contextPath}/ListarPlanosServlet"> Listar Planos </a></li>
+                            <li><a href="${pageContext.request.contextPath}/cadastro-pagamento"> Cadastrar Pagamento </a></li>
+                            <li><a href="${pageContext.request.contextPath}/PagamentoListar"> Listar Pagamento </a></li>
                         </ul>
                     </li>
+                   
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="${pageContext.request.contextPath}/Sair"><span class="glyphicon glyphicon-log-out"></span> Sair </a></li>
+                    <li><a href="${pageContext.request.contextPath}/Sair"><span class="glyphicon glyphicon-log-out"></span> Logoff </a></li>
                 </ul>
             </div>
         </nav>                 

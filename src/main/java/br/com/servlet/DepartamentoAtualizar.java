@@ -5,9 +5,11 @@
  */
 package br.com.servlet;
 
-import br.com.model.Funcionario;
+import br.com.model.Departamento;
+import br.com.dao.DaoDepartamento;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Guilherme
  */
-@WebServlet(name = "DepartamentoHome", urlPatterns = {"/DepartamentoHome"})
-public class DepartamentoHome extends HttpServlet {
+@WebServlet(name = "DepartamentoAtualizar", urlPatterns = {"/DepartamentoAtualizar"})
+public class DepartamentoAtualizar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,46 +37,51 @@ public class DepartamentoHome extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DepartamentoHome</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DepartamentoHome at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
-        request.getRequestDispatcher("WEB-INF/Departamento/DepartamentoInicio.jsp").forward(request, response);
-
+        processRequest(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String idDepartamento = request.getParameter("idDepartamento");
+        String departamento = request.getParameter("departamento");
+        String metodo = request.getParameter("metodo");
+
+        Departamento d1 = new Departamento(Integer.parseInt(idDepartamento), departamento);
+
+        DaoDepartamento con = new DaoDepartamento();
+
+        try {
+            if (metodo.equals("atualizar")) {
+
+                con.atualizar(d1);
+
+                request.setAttribute("departamentoUpdate", d1);
+                RequestDispatcher dispatcher
+                        = request.getRequestDispatcher("WEB-INF/Departamento/resultadoAtualizar.jsp");
+                dispatcher.forward(request, response);
+            } else if (metodo.equals("deletar")) {
+                con.deletar(d1.getIdDepartamento());
+                
+                request.setAttribute("departamentoUpdate", d1);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Departamento/resultadoDelete.jsp");
+                dispatcher.forward(request, response);
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Vefique o objeto");
+        }
+
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

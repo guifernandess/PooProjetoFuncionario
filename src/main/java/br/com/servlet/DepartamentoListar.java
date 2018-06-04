@@ -68,11 +68,6 @@ public class DepartamentoListar extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        Funcionario funcionario = (Funcionario) request.getSession().getAttribute("funcionariio");
-        if (funcionario == null) {
-            response.sendRedirect("index.jsp");
-        }
-        
         DaoDepartamento con = new DaoDepartamento();
         List<Departamento> lista = new ArrayList<Departamento>();
         

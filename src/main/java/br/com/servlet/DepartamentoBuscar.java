@@ -24,15 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 public class DepartamentoBuscar extends HttpServlet {
 
    
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -43,10 +34,10 @@ public class DepartamentoBuscar extends HttpServlet {
        DaoDepartamento con = new DaoDepartamento();
        Departamento departamento = new Departamento();
        
-       try {
-           departamento = con.obter(id);
-       } catch (Exception e) {
-           response.sendRedirect("index.jsp");
+        try {
+            departamento = con.obter(id);
+        } catch (Exception e) {
+            response.sendRedirect("index.jsp");
         }
        
        request.setAttribute("departamentoAtualizado", departamento);
@@ -66,7 +57,20 @@ public class DepartamentoBuscar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String idDepartamento = request.getParameter("idDepartamento");
         
+        DaoDepartamento con = new DaoDepartamento();
+        
+        Departamento departamento = new Departamento();
+        
+        try {
+            departamento = con.obter(Integer.parseInt(idDepartamento));
+        } catch (Exception e) {
+        }
+        
+        request.setAttribute("departamentoAtualizado", departamento);
+        
+        request.getRequestDispatcher("WEB-INF/Departamento/form-departamento-resultado.jsp").forward(request, response);
     }
 
     /**

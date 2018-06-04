@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-row col-md-4">
                             <label for="inputEmail4">Departamento</label>
-                            <input type="text" class="form-control" placeholder="Modelo" name="departamento" value= "${departamentoAtualizado.departamento}">
+                            <input type="text" class="form-control" placeholder="Modelo" name="departamento" value= "${departamentoAtualizado.nome}">
                         </div>
                         
                         <div class="custom-control custom-radio custom-control-inline">
