@@ -5,6 +5,7 @@
  */
 package br.com.servlet;
 
+import br.com.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -32,7 +33,16 @@ public class PJHome extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            if (usuario.getHierarquia() < 1) {
+                response.sendRedirect("index.jsp");
+            }
+        }
+        
         request.getRequestDispatcher("WEB-INF/FuncionarioPJ/PjInicio.jsp").forward(request, response);
     }
 

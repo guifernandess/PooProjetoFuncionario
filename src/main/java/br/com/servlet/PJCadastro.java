@@ -9,6 +9,7 @@ import br.com.dao.DaoFuncionario;
 import br.com.dao.DaoFuncionarioPJ;
 import br.com.model.Funcionario;
 import br.com.model.FuncionarioPJ;
+import br.com.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -36,14 +37,32 @@ public class PJCadastro extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            if (usuario.getHierarquia() < 1) {
+                response.sendRedirect("index.jsp");
+            }
+        }
+        
         request.getRequestDispatcher("WEB-INF/FuncionarioPJ/form-pj-cadastro.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            if (usuario.getHierarquia() < 1) {
+                response.sendRedirect("index.jsp");
+            }
+        }
+        
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         DaoFuncionarioPJ con = new DaoFuncionarioPJ();
         DaoFuncionario daofunc = new DaoFuncionario();

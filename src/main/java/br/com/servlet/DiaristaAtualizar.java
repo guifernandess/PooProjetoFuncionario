@@ -7,6 +7,7 @@ package br.com.servlet;
 
 import br.com.model.FuncionarioDiarista;
 import br.com.dao.DaoFuncionarioDiarista;
+import br.com.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -31,22 +32,29 @@ public class DiaristaAtualizar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-           
+
         }
     }
 
-   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            if (usuario.getHierarquia() < 1) {
+                response.sendRedirect("index.jsp");
+            }
+        }
+
         String idFuncionario = request.getParameter("idFuncionario");
         String idDepartamento = request.getParameter("idDepartamento");
         String idDiarista = request.getParameter("idDiarista");
@@ -60,21 +68,20 @@ public class DiaristaAtualizar extends HttpServlet {
         String valorDia = request.getParameter("valorDia");
         String valorRefeicao = request.getParameter("valorrefeicao");
         String valorTransporte = request.getParameter("valortransporte");
-        
+
         String metodo = request.getParameter("metodo");
-        
+
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         java.sql.Date data = null;
         java.sql.Date data1 = null;
-        
-        
+
         try {
             data = new java.sql.Date(format.parse(dtnascimento).getTime());
             data1 = new java.sql.Date(format.parse(dtadmissao).getTime());
         } catch (ParseException ex) {
             System.out.println("erro converter data");
         }
-        
+
         FuncionarioDiarista dia = new FuncionarioDiarista();
         dia.setIdFuncionario(Integer.parseInt(idFuncionario));
         dia.setIdDepartamento(Integer.parseInt(idDepartamento));
@@ -89,13 +96,13 @@ public class DiaristaAtualizar extends HttpServlet {
         dia.setValorDiario(Double.parseDouble(valorDia));
         dia.setValorRefeicao(Double.parseDouble(valorRefeicao));
         dia.setValorTransporte(Double.parseDouble(valorTransporte));
-        
+
         DaoFuncionarioDiarista con = new DaoFuncionarioDiarista();
-        
+
         try {
             if (metodo.equals("atualizar")) {
                 con.alterar(dia);
-        
+
                 request.setAttribute("diaUpdate", dia);
                 RequestDispatcher dispatcher
                         = request.getRequestDispatcher("WEB-INF/FuncionarioDiarista/resultadoAtualizarFuncDiarista.jsp");
@@ -113,7 +120,7 @@ public class DiaristaAtualizar extends HttpServlet {
         } catch (Exception e) {
             System.out.println("Vefique o objeto");
         }
-        
+
     }
 
     @Override

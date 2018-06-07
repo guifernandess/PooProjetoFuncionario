@@ -9,6 +9,7 @@ import br.com.dao.DaoFuncionarioCLT;
 import br.com.dao.DaoFuncionario;
 import br.com.model.FuncionarioCLT;
 import br.com.model.Funcionario;
+import br.com.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -35,6 +36,15 @@ public class CLTBuscar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            if (usuario.getHierarquia() < 1) {
+                response.sendRedirect("index.jsp");
+            }
+        }
 
         String idclt = request.getParameter("idClt");
 

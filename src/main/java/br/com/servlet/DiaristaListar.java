@@ -9,6 +9,7 @@ import br.com.model.Funcionario;
 import br.com.model.FuncionarioDiarista;
 import br.com.dao.DaoFuncionario;
 import br.com.dao.DaoFuncionarioDiarista;
+import br.com.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -38,6 +39,15 @@ public class DiaristaListar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            if (usuario.getHierarquia() < 1) {
+                response.sendRedirect("index.jsp");
+            }
+        }
         
         DaoFuncionarioDiarista conn = new DaoFuncionarioDiarista();
         List<FuncionarioDiarista> lista = new ArrayList<FuncionarioDiarista>();

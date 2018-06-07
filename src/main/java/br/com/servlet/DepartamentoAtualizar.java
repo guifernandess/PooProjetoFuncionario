@@ -7,6 +7,7 @@ package br.com.servlet;
 
 import br.com.model.Departamento;
 import br.com.dao.DaoDepartamento;
+import br.com.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -50,6 +51,15 @@ public class DepartamentoAtualizar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            if (usuario.getHierarquia() < 1) {
+                response.sendRedirect("index.jsp");
+            }
+        }
+
         String idDepartamento = request.getParameter("idDepartamento");
         String departamento = request.getParameter("departamento");
         String metodo = request.getParameter("metodo");
@@ -69,7 +79,7 @@ public class DepartamentoAtualizar extends HttpServlet {
                 dispatcher.forward(request, response);
             } else if (metodo.equals("deletar")) {
                 con.deletar(d1.getIdDepartamento());
-                
+
                 request.setAttribute("departamentoUpdate", d1);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Departamento/resultadoDelete.jsp");
                 dispatcher.forward(request, response);

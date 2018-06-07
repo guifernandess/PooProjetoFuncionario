@@ -5,9 +5,9 @@
  */
 package br.com.servlet;
 
-
 import br.com.dao.DaoDepartamento;
 import br.com.model.Departamento;
+import br.com.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -23,27 +23,36 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "DepartamentoBuscar", urlPatterns = {"/buscar-departamento"})
 public class DepartamentoBuscar extends HttpServlet {
 
-   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String idDepartamento = request.getParameter("idDepartamento");
-       
-       int id = Integer.parseInt(idDepartamento.substring(1,2));
-       
-       DaoDepartamento con = new DaoDepartamento();
-       Departamento departamento = new Departamento();
-       
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            if (usuario.getHierarquia() < 1) {
+                response.sendRedirect("index.jsp");
+            }
+        }
+
+        String idDepartamento = request.getParameter("idDepartamento");
+
+        int id = Integer.parseInt(idDepartamento.substring(1, 2));
+
+        DaoDepartamento con = new DaoDepartamento();
+        Departamento departamento = new Departamento();
+
         try {
             departamento = con.obter(id);
         } catch (Exception e) {
             response.sendRedirect("index.jsp");
         }
-       
-       request.setAttribute("departamentoAtualizado", departamento);
-       
-       request.getRequestDispatcher("WEB-INF/Departamento/form-departamento-resultado.jsp").forward(request, response);
-       
+
+        request.setAttribute("departamentoAtualizado", departamento);
+
+        request.getRequestDispatcher("WEB-INF/Departamento/form-departamento-resultado.jsp").forward(request, response);
+
     }
 
     /**
@@ -57,19 +66,29 @@ public class DepartamentoBuscar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            if (usuario.getHierarquia() < 1) {
+                response.sendRedirect("index.jsp");
+            }
+        }
+
         String idDepartamento = request.getParameter("idDepartamento");
-        
+
         DaoDepartamento con = new DaoDepartamento();
-        
+
         Departamento departamento = new Departamento();
-        
+
         try {
             departamento = con.obter(Integer.parseInt(idDepartamento));
         } catch (Exception e) {
         }
-        
+
         request.setAttribute("departamentoAtualizado", departamento);
-        
+
         request.getRequestDispatcher("WEB-INF/Departamento/form-departamento-resultado.jsp").forward(request, response);
     }
 

@@ -5,11 +5,11 @@
  */
 package br.com.servlet;
 
-
 import br.com.model.Funcionario;
 import br.com.model.FuncionarioCLT;
 import br.com.dao.DaoFuncionario;
 import br.com.dao.DaoFuncionarioCLT;
+import br.com.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -42,21 +42,29 @@ public class CLTListar extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            if (usuario.getHierarquia() < 1) {
+                response.sendRedirect("index.jsp");
+            }
+        }
+
         DaoFuncionarioCLT conn = new DaoFuncionarioCLT();
         List<FuncionarioCLT> lista = new ArrayList<FuncionarioCLT>();
-        
-        
+
         try {
 
             lista = conn.obterList();
-            
+
         } catch (SQLException ex) {
             System.out.println(ex);
         } catch (Exception ex) {
             //validar erro
             System.out.println(ex);
         }
-        
+
         request.setAttribute("lista", lista);
         request.getRequestDispatcher("WEB-INF/FuncionarioCLT/ListarCLT.jsp").forward(request, response);
     }

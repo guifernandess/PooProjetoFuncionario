@@ -42,6 +42,15 @@ public class UsuarioAtualizar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            if (usuario.getHierarquia() < 1) {
+                response.sendRedirect("index.jsp");
+            }
+        }
+        
         String idUsuario = request.getParameter("idUsuario");
         String nome = request.getParameter("nome");
         String login = request.getParameter("login");

@@ -9,6 +9,7 @@ import br.com.model.Funcionario;
 import br.com.model.FuncionarioPJ;
 import br.com.dao.DaoFuncionario;
 import br.com.dao.DaoFuncionarioPJ;
+import br.com.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -38,6 +39,16 @@ public class PJListar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            if (usuario.getHierarquia() < 1) {
+                response.sendRedirect("index.jsp");
+            }
+        }
+
         DaoFuncionarioPJ conn = new DaoFuncionarioPJ();
         List<FuncionarioPJ> lista = new ArrayList<FuncionarioPJ>();
 

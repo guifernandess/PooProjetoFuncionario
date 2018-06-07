@@ -27,22 +27,31 @@ public class UsuarioBuscar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            if (usuario.getHierarquia() < 1) {
+                response.sendRedirect("index.jsp");
+            }
+        }
+
         String idusuario = request.getParameter("idusuario");
-        
+
         int id = Integer.parseInt(idusuario.substring(1, 2));
-        
+
         UsuarioController con1 = new UsuarioController();
         Usuario usu = new Usuario();
-        
-         try {
+
+        try {
             usu = con1.obter(id);
         } catch (Exception e) {
             response.sendRedirect("index.jsp");
@@ -51,7 +60,7 @@ public class UsuarioBuscar extends HttpServlet {
         request.setAttribute("UsuarioAtualizado", usu);
 
         request.getRequestDispatcher("WEB-INF/Usuario/form-usuario-resultado.jsp").forward(request, response);
-        
+
     }
 
     @Override

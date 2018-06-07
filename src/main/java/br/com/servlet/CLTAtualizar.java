@@ -5,6 +5,7 @@
  */
 package br.com.servlet;
 
+import br.com.model.Usuario;
 import br.com.model.FuncionarioCLT;
 import br.com.dao.DaoFuncionarioCLT;
 import java.io.IOException;
@@ -47,6 +48,15 @@ public class CLTAtualizar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            if (usuario.getHierarquia() < 1) {
+                response.sendRedirect("index.jsp");
+            }
+        }
         
         String idFuncionario = request.getParameter("idFuncionario");
         String idDepartamento = request.getParameter("idDepartamento");
