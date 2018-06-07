@@ -16,10 +16,10 @@ import java.util.ArrayList;
  *
  * @author Guilherme
  */
-public class DaoFuncionarioPJ {
+public class DaoFuncionarioPJ implements InterfaceDaoPJ{
 
-
-    public static void cadastrar(FuncionarioPJ pj) throws Exception, SQLException {
+    @Override
+    public void cadastrar(FuncionarioPJ pj) throws Exception, SQLException {
          try {
             Connection conn = SqlConnection.getConexao();
             String sql = "INSERT INTO FUNCIONARIO_PJ (id_funcionario, cnpj, valor_hora, quantidade_hora, tempo_contrato)"
@@ -41,8 +41,8 @@ public class DaoFuncionarioPJ {
         }
     }
 
-   
-    public static void alterar(FuncionarioPJ pj) throws Exception, SQLException {
+    @Override
+    public void alterar(FuncionarioPJ pj) throws Exception, SQLException {
         try {
             Connection conn = SqlConnection.getConexao();
             String sql = "UPDATE FUNCIONARIO_PJ SET"
@@ -67,8 +67,8 @@ public class DaoFuncionarioPJ {
         }
     }
 
-
-    public static FuncionarioPJ obter(int CPF) throws Exception, SQLException {
+    @Override
+    public FuncionarioPJ obter(int CPF) throws Exception, SQLException {
         try {
             FuncionarioPJ funcionario = new FuncionarioPJ();
             Connection conn = SqlConnection.getConexao();
@@ -109,8 +109,8 @@ public class DaoFuncionarioPJ {
         
     }
 
-
-    public static ArrayList<FuncionarioPJ> obterList() throws Exception, SQLException {
+    @Override
+    public ArrayList<FuncionarioPJ> obterList() throws Exception, SQLException {
         try {
             ArrayList<FuncionarioPJ> funcionarios = new ArrayList<FuncionarioPJ>();
             Connection conn = SqlConnection.getConexao();
@@ -147,8 +147,8 @@ public class DaoFuncionarioPJ {
         }
     }
 
-
-    public static void deletar(int CPF) throws Exception, SQLException {
+    @Override
+    public void deletar(int CPF) throws Exception, SQLException {
          try {
             Connection conn = SqlConnection.getConexao();
             String sql = "delete Funcionario_pj where CNPJ = ?";

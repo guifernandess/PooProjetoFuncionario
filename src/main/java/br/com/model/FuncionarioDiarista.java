@@ -19,6 +19,7 @@ public class FuncionarioDiarista extends Funcionario {
     private double valorRefeicao;
     private double valorTransporte;
     private double valorDiario;
+    private int qtdDias;
 
     public FuncionarioDiarista(int idFuncionario, int idDepartamento, String Departamento, String nome, Date dataAdmissao, String endereco, int telefone) {
         super(idFuncionario, idDepartamento, Departamento, nome, dataAdmissao, endereco, telefone);
@@ -99,13 +100,32 @@ public class FuncionarioDiarista extends Funcionario {
     public void setValorDiario(double valorDiario) {
         this.valorDiario = valorDiario;
     }
-    
-    
-    public Double calcVR(int qtdDias, FuncionarioDiarista funcionario) {
-        return qtdDias * this.valorRefeicao;
+
+    public int getQtdDias() {
+        return qtdDias;
     }
 
-    public Double calcVT(int qtdDias, FuncionarioDiarista funcionario) {
-        return qtdDias * this.valorTransporte;
+    public void setQtdDias(int qtdDias) {
+        this.qtdDias = qtdDias;
     }
+    
+    
+    public Double calcVR() {
+       return getQtdDias() * getValorRefeicao();
+    }
+
+    public Double calcVT() {
+        return getQtdDias() * getValorTransporte();
+    }
+    
+    public Double calcValor() {
+        return getQtdDias() * getValorDiario();
+    }
+    
+    @Override
+    public Double calcPagamento () {
+        double aux = calcValor() + calcVR() + calcVT();
+        return aux;
+    }
+    
 }

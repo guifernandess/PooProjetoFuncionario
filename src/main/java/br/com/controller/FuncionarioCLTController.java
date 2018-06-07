@@ -14,10 +14,13 @@ import java.util.ArrayList;
  * @author Guilherme
  */
 public class FuncionarioCLTController {
+    
+    static DaoFuncionarioCLT dao = new DaoFuncionarioCLT();
+    
     public  void cadastrar(FuncionarioCLT funcionario) throws Exception {
         try {
             validar(funcionario);
-            DaoFuncionarioCLT.cadastrar(funcionario);
+            dao.cadastrar(funcionario);
         } catch (Exception e) {
             throw e;
         }
@@ -26,7 +29,7 @@ public class FuncionarioCLTController {
     public  void alterar(FuncionarioCLT funcionario) throws Exception {
         try {
             validar(funcionario);
-            DaoFuncionarioCLT.alterar(funcionario);
+            dao.alterar(funcionario);
         } catch (Exception e) {
             throw e;
         }
@@ -34,7 +37,7 @@ public class FuncionarioCLTController {
     
     public static FuncionarioCLT obter(int CPF) throws Exception {
         try {
-            return DaoFuncionarioCLT.obter(CPF);
+            return dao.obter(CPF);
         } catch (Exception e) {
             throw e;
         }
@@ -42,7 +45,7 @@ public class FuncionarioCLTController {
     
     public static ArrayList<FuncionarioCLT> listar() throws Exception {
         try {
-            return DaoFuncionarioCLT.obterList();
+            return dao.obterList();
         } catch (Exception e) {
             throw e;
         }
@@ -50,7 +53,7 @@ public class FuncionarioCLTController {
     
     public static void deletar(int id) throws Exception {
         try {
-             DaoFuncionarioCLT.deletar(id);
+             dao.deletar(id);
         } catch (Exception e) {
             throw e;
         }

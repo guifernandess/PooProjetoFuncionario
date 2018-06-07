@@ -17,9 +17,10 @@ import java.util.ArrayList;
  *
  * @author Guilherme
  */
-public class DaoFuncionarioDiarista {
+public class DaoFuncionarioDiarista implements InterfaceDaoDiarista{
    
-    public static void cadastrar(FuncionarioDiarista funcionario) throws Exception, SQLException {
+    @Override
+    public void cadastrar(FuncionarioDiarista funcionario) throws Exception, SQLException {
 
         try {
             Connection conn = SqlConnection.getConexao();
@@ -43,8 +44,8 @@ public class DaoFuncionarioDiarista {
         }
     }
 
-    
-    public static void alterar(FuncionarioDiarista funcionario) throws Exception, SQLException {
+    @Override
+    public void alterar(FuncionarioDiarista funcionario) throws Exception, SQLException {
         try {
             Connection conn = SqlConnection.getConexao();
             String sql = "UPDATE FUNCIONARIO_DIARISTA SET"
@@ -70,8 +71,8 @@ public class DaoFuncionarioDiarista {
         }
     }
 
-   
-    public static FuncionarioDiarista obter(int CPF) throws Exception, SQLException {
+    @Override
+    public FuncionarioDiarista obter(int CPF) throws Exception, SQLException {
         try {
             FuncionarioDiarista funcionario = new FuncionarioDiarista();
             Connection conn = SqlConnection.getConexao();
@@ -113,8 +114,8 @@ public class DaoFuncionarioDiarista {
         
     }
 
-
-    public static ArrayList<FuncionarioDiarista> obterList() throws Exception, SQLException {
+    @Override
+    public ArrayList<FuncionarioDiarista> obterList() throws Exception, SQLException {
         try {
             ArrayList<FuncionarioDiarista> funcionarios = new ArrayList<FuncionarioDiarista>();
             Connection conn = SqlConnection.getConexao();
@@ -151,8 +152,8 @@ public class DaoFuncionarioDiarista {
         }
     }
 
-
-    public static void deletar(int CPF) throws Exception, SQLException {
+    @Override
+    public void deletar(int CPF) throws Exception, SQLException {
         try {
             Connection conn = SqlConnection.getConexao();
             String sql = "delete Funcionario_diarista where CPF = ?";

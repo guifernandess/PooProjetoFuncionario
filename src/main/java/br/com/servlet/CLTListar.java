@@ -3,10 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.servlet.FuncionarioCLT;
+package br.com.servlet;
 
+
+import br.com.model.Funcionario;
+import br.com.model.FuncionarioCLT;
+import br.com.dao.DaoFuncionario;
+import br.com.dao.DaoFuncionarioCLT;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,48 +27,46 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Guilherme
  */
-@WebServlet(name = "CLTAtualizar", urlPatterns = {"/CLTAtualizar"})
-public class CLTAtualizar extends HttpServlet {
+@WebServlet(name = "CLTListar", urlPatterns = {"/CLTListar"})
+public class CLTListar extends HttpServlet {
 
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-           
+
         }
     }
 
-   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        DaoFuncionarioCLT conn = new DaoFuncionarioCLT();
+        List<FuncionarioCLT> lista = new ArrayList<FuncionarioCLT>();
         
+        
+        try {
+
+            lista = conn.obterList();
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } catch (Exception ex) {
+            //validar erro
+            System.out.println(ex);
+        }
+        
+        request.setAttribute("lista", lista);
+        request.getRequestDispatcher("WEB-INF/FuncionarioCLT/ListarCLT.jsp").forward(request, response);
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String nome = request.getParameter("nome");
-        String CPF = request.getParameter("cpf");
-        String dtnascimento = request.getParameter("dtnascimento");
-        String endereco = request.getParameter("endereco");
-        String telefone = request.getParameter("telefone");
-        String dtadmissao = request.getParameter("dtadmissao");
-        String departamento = request.getParameter("departamento");
-        String salario = request.getParameter("salario");
-        String valorRefeicao = request.getParameter("valorrefeicao");
-        String valorTransporte = request.getParameter("valortransporte");
-        
+        processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

@@ -5,6 +5,7 @@
  */
 package br.com.dao;
 
+import br.com.interfaces.InterfaceDaoClt;
 import br.com.model.Funcionario;
 import br.com.model.FuncionarioCLT;
 import java.sql.Connection;
@@ -14,11 +15,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class DaoFuncionarioCLT {
+public class DaoFuncionarioCLT implements InterfaceDaoClt{
 
     private FuncionarioCLT funcionario;
-
-    public static void cadastrar(FuncionarioCLT funcionario) throws Exception {
+    
+    @Override
+    public void cadastrar(FuncionarioCLT funcionario) throws Exception {
         
         try {
             Connection conn = SqlConnection.getConexao();
@@ -40,8 +42,9 @@ public class DaoFuncionarioCLT {
             throw e;
         }
     }
-
-    public static void alterar(FuncionarioCLT funcionario) throws Exception, SQLException {
+    
+    @Override
+    public void alterar(FuncionarioCLT funcionario) throws Exception, SQLException {
         try {
             Connection conn = SqlConnection.getConexao();
             String sql = "UPDATE FUNCIONARIO_CLT SET"
@@ -66,7 +69,8 @@ public class DaoFuncionarioCLT {
         }
     }
     
-    public static FuncionarioCLT obter(int CPF) throws Exception {
+    @Override
+    public FuncionarioCLT obter(int CPF) throws Exception {
         try {
             FuncionarioCLT funcionario = new FuncionarioCLT();
             Connection conn = SqlConnection.getConexao();
@@ -108,7 +112,8 @@ public class DaoFuncionarioCLT {
         
     }
     
-    public static ArrayList<FuncionarioCLT> obterList() throws Exception {
+    @Override
+    public ArrayList<FuncionarioCLT> obterList() throws Exception {
         try {
             ArrayList<FuncionarioCLT> funcionarios = new ArrayList<FuncionarioCLT>();
             Connection conn = SqlConnection.getConexao();
@@ -145,8 +150,8 @@ public class DaoFuncionarioCLT {
         }
     }
 
-
-    public static void deletar(int CPF) throws Exception {
+    @Override
+    public void deletar(int CPF) throws Exception {
         try {
             Connection conn = SqlConnection.getConexao();
             String sql = "delete Funcionario_CLT where CPF = ?";

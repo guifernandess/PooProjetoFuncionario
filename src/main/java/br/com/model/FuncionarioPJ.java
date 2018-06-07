@@ -11,13 +11,14 @@ import java.sql.Date;
  *
  * @author Guilherme
  */
-public class FuncionarioPJ extends Funcionario{
+public class FuncionarioPJ extends Funcionario {
+
     private int idPJ;
     private int CNPJ;
     private double valorHora;
     private int qtdHora;
     private String tempoContrato;
-    
+
     public FuncionarioPJ(int idFuncionario, int idDepartamento, String Departamento, String nome, Date dataAdmissao, String endereco, int telefone) {
         super(idFuncionario, idDepartamento, Departamento, nome, dataAdmissao, endereco, telefone);
 
@@ -26,18 +27,15 @@ public class FuncionarioPJ extends Funcionario{
         this.valorHora = valorHora;
         this.qtdHora = qtdHora;
         this.tempoContrato = tempoContrato;
-        
+
     }
 
-    public FuncionarioPJ() {     
+    public FuncionarioPJ() {
     }
 
     public FuncionarioPJ(int aInt, int aInt0, String string, String string0, Date date, String string1, int aInt1, int aInt2, int aInt3, double aDouble, int aInt4, String string2) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
-    
 
     public int getIdPJ() {
         return idPJ;
@@ -78,8 +76,11 @@ public class FuncionarioPJ extends Funcionario{
     public void setTempoContrato(String tempoContrato) {
         this.tempoContrato = tempoContrato;
     }
-    
-    public Double calcValorTotalHora(FuncionarioPJ pj){
-        return this.qtdHora * this.valorHora;
+
+    @Override
+    public Double calcPagamento() {
+        double aux = getQtdHora() * getValorHora();
+        return aux;
     }
+
 }

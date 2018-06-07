@@ -3,12 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.servlet.FuncionarioCLT;
+package br.com.servlet;
 
-import br.com.dao.DaoFuncionarioCLT;
-import br.com.dao.DaoFuncionario;
-import br.com.model.FuncionarioCLT;
-import br.com.model.Funcionario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -21,9 +17,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Guilherme
  */
-@WebServlet(name = "FuncionarioCLTBuscar", urlPatterns = {"/buscar-funcionarioclt"})
-public class FuncionarioCLTBuscar extends HttpServlet {
+@WebServlet(name = "DiaristaHome", urlPatterns = {"/DiaristaHome"})
+public class DiaristaHome extends HttpServlet {
 
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -32,39 +29,18 @@ public class FuncionarioCLTBuscar extends HttpServlet {
         }
     }
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String idclt = request.getParameter("idClt");
-        
-        int id = Integer.parseInt(idclt.substring(1,2));
-        
-        DaoFuncionarioCLT con1 = new DaoFuncionarioCLT();
-        FuncionarioCLT clt = new FuncionarioCLT();
-        
-        try {
-            clt = con1.obter(id);
-        } catch (Exception e) {
-            response.sendRedirect("index.jsp");
-        }
-        
-        request.setAttribute("cltAtualizado", clt);
-       
-       request.getRequestDispatcher("WEB-INF/FuncionarioCLT/form-clt-resultado.jsp").forward(request, response);
-                
-        
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        request.getRequestDispatcher("WEB-INF/FuncionarioDiarista/DiaristaInicio.jsp").forward(request, response);
     }
 
-    
     @Override
     public String getServletInfo() {
         return "Short description";

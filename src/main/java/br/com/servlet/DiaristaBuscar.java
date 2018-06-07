@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.servlet.FuncionarioCLT;
+package br.com.servlet;
 
-import br.com.model.FuncionarioCLT;
-import br.com.dao.DaoFuncionarioCLT;
+import br.com.dao.DaoFuncionarioDiarista;
+import br.com.dao.DaoFuncionario;
+import br.com.model.FuncionarioDiarista;
+import br.com.model.Funcionario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Guilherme
  */
-@WebServlet(name = "CLTBuscar", urlPatterns = {"/clt-buscar"})
-public class CLTBuscar extends HttpServlet {
+@WebServlet(name = "DiaristaBuscar", urlPatterns = {"/buscar-funcionariodiarista"})
+public class DiaristaBuscar extends HttpServlet {
 
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -35,45 +37,34 @@ public class CLTBuscar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idFuncionario = request.getParameter("idFuncionario");
         
-        int id = Integer.parseInt(idFuncionario.substring(1,2));
+        String idpj = request.getParameter("idPj");
         
-        DaoFuncionarioCLT con = new DaoFuncionarioCLT();
-        FuncionarioCLT clt = new FuncionarioCLT();
+        int id = Integer.parseInt(idpj.substring(1,2));
+        
+        DaoFuncionarioDiarista con1 = new DaoFuncionarioDiarista();
+        FuncionarioDiarista dia = new FuncionarioDiarista();
         
         try {
-            clt = con.obter(id);
+            dia = con1.obter(id);
         } catch (Exception e) {
             response.sendRedirect("index.jsp");
         }
         
-        request.setAttribute("cltAtualizado", clt);
+        request.setAttribute("diaristaAtualizado", dia);
        
-       request.getRequestDispatcher("WEB-INF/Departamento/form-clt-resultado.jsp").forward(request, response);
-    }
-
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String idFuncionario = request.getParameter("idFuncionario");
-        
-        DaoFuncionarioCLT con = new DaoFuncionarioCLT();
-        FuncionarioCLT clt = new FuncionarioCLT();
-        
-        try {
-            clt = con.obter(Integer.parseInt(idFuncionario));
-        } catch (Exception e) {
-        }
-        
-        request.setAttribute("cltAtualizado", clt);
-        
-        request.getRequestDispatcher("WEB-INF/Departamento/form-departamento-resultado.jsp").forward(request, response);
-        
+       request.getRequestDispatcher("WEB-INF/FuncionarioDiarista/form-diarista-resultado.jsp").forward(request, response);
+                
     }
 
    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+    }
+
+    
     @Override
     public String getServletInfo() {
         return "Short description";

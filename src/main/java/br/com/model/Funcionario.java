@@ -89,4 +89,9 @@ public class Funcionario {
     public void setTelefone(int telefone) {
         this.telefone = telefone;
     }    
+    
+    public Double calcPagamento (){
+         double x = 0;
+         return x;
+    }
 }

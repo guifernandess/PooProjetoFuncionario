@@ -18,6 +18,7 @@ public class FuncionarioCLT extends Funcionario {
     private double valorRefeicao;
     private double valortransporte;
     private Date dataNascimento;
+    private int diasFaltas;
     private double salario;
 
     public FuncionarioCLT(int idFuncionario, int idDepartamento, String Departamento, String nome, Date dataAdmissao, String endereco, int telefone
@@ -41,8 +42,8 @@ public class FuncionarioCLT extends Funcionario {
     }
     
     
-    public Double calcValorFalta(int qtdFalta, FuncionarioCLT clt) {
-        double auxValorDia = this.salario / 30;
+    public Double calcValorFalta(int qtdFalta) {
+        double auxValorDia = getSalario() / 30;
         return qtdFalta * auxValorDia;
     }
 
@@ -92,6 +93,20 @@ public class FuncionarioCLT extends Funcionario {
 
     public void setSalario(double salario) {
         this.salario = salario;
+    }
+
+    public int getDiasFaltas() {
+        return diasFaltas;
+    }
+
+    public void setDiasFaltas(int diasFaltas) {
+        this.diasFaltas = diasFaltas;
+    }
+    
+    @Override
+    public Double calcPagamento () {
+        double aux = getSalario()+ getValorRefeicao() + getValortransporte() - calcValorFalta(getDiasFaltas());
+        return aux;
     }
 
 }
