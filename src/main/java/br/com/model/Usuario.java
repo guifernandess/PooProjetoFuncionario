@@ -10,13 +10,44 @@ package br.com.model;
  * @author guilherme.frocha6
  */
 public class Usuario {
+    private int idUsuario;
     private String login;
     private String nome;
     private String senha;
     private int hierarquia;
+    private String Cargo;
+
+    public Usuario(int idUsuario, String login, String nome, String senha, int hierarquia, String Cargo) {
+        this.idUsuario = idUsuario;
+        this.login = login;
+        this.nome = nome;
+        this.senha = senha;
+        this.hierarquia = hierarquia;
+        this.Cargo = Cargo;
+    }
+
+    
+
+    public Usuario() {
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     
     
-    
+    public String getCargo() {
+        return Cargo;
+    }
+
+    public void setCargo(String Cargo) {
+        this.Cargo = Cargo;
+    }
     
     public String getLogin() {
         return login;

@@ -57,7 +57,7 @@ public class DaoDepartamento {
         try {
             Departamento departamento = new Departamento();
             Connection conn = SqlConnection.getConexao();
-            String sql = "select * FROM Departamento WHERE id = " + idDepartamento;
+            String sql = "select * FROM Departamento WHERE id_departamento = " + idDepartamento;
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, idDepartamento);
