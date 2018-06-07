@@ -109,8 +109,6 @@ public class DaoUsuario {
                 String senha = rs.getString("senha");
                 int hierarquia = rs.getInt("hierarquia");
                 String cargo = rs.getString("cargo");
-                
-                
 
                 Usuario d = new Usuario();
 
@@ -133,11 +131,11 @@ public class DaoUsuario {
             throw e;
         }
     }
-    
+
     public int selectId(String login) throws ClassNotFoundException, SQLException, Exception {
-        
+
         Usuario usuario = new Usuario();
-        
+
         try {
             Connection conn = SqlConnection.getConexao();
             String sql = "SELECT id_usuario"
@@ -161,14 +159,14 @@ public class DaoUsuario {
         }
         return usuario.getIdUsuario();
     }
-    
+
     public static boolean deletar(int id) throws Exception {
         boolean deletado = false;
         try {
             Connection conn = SqlConnection.getConexao();
             String sql = "delete Usuario where id_usuario = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            
+
             stmt.setInt(1, id);
 
             stmt.executeUpdate();
@@ -181,5 +179,58 @@ public class DaoUsuario {
         }
         return deletado;
     }
-}
 
+    public Usuario obterUsuario(String login, String senha) throws Exception, ClassNotFoundException, SQLException {
+        Usuario usu = new Usuario();
+
+        try {
+            Connection conn = SqlConnection.getConexao();
+            String sql = "SELECT id_usuario"
+                    + "FROM usuario"
+                    + "where login = '" + login + "'"
+                    + "and senha = '" + senha + "'";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id_usuario = rs.getInt("id_usuario");
+                String nome = rs.getString("nome");
+                String login1 = rs.getString("login");
+                String senha1 = rs.getString("senha");
+                int hierarquia = rs.getInt("hierarquia");
+                String cargo = rs.getString("cargo");
+
+                usu.setIdUsuario(id_usuario);
+                usu.setNome(nome);
+                usu.setLogin(login1);
+                usu.setSenha(senha1);
+                usu.setHierarquia(hierarquia);
+                usu.setCargo(cargo);
+            }
+            conn.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        return usu;
+    }
+
+    public static Usuario logar(String login, String senha) throws Exception {
+        try {
+            Usuario usu = new Usuario();
+            DaoUsuario conn = new DaoUsuario();
+            usu = conn.obterUsuario(login, senha);
+
+            if (usu.getIdUsuario() == 0) {
+                throw new Exception("CPF e/ou senha incorreto(s)");
+            }
+            return usu;
+        } catch (Exception e) {
+            throw e;
+        }
+
+    }
+}
